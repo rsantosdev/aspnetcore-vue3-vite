@@ -13,7 +13,7 @@ type Organizations = Organization[];
 const _orgs = ref<Organizations | null>(null);
 const _org = ref<Organization | null>(null);
 
-async function fetchData() {
+const fetchData = async function () {
   _orgs.value = null;
   _org.value = null;
 
