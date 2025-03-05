@@ -22,6 +22,10 @@ const fetchData = async function () {
   _org.value = (response.data.length === 1 ? response.data[0] : response.data.find(x => x.selected)) || null;
 };
 
+const switchOrganization = function (org: Organization) {
+  _org.value = org;
+}
+
 onMounted(async () => {
   await fetchData();
 });
@@ -49,7 +53,7 @@ onMounted(async () => {
         <span class="d-block text-xs text-muted">Switch workspace</span>
       </div>
       <div class="vstack gap-1">
-        <a href="#" class="dropdown-item px-2" v-for="org in _orgs" :key="org.id">
+        <a href="#" class="dropdown-item px-2" v-for="org in _orgs" :key="org.id" @click="switchOrganization(org)">
           <div class="position-relative d-flex align-items-center gap-3">
             <img src="https://assets.webpixels.io/img/clients/square/logo-1.png" class="avatar avatar-xs" alt="..." />
             <div class="me-auto">
@@ -57,7 +61,7 @@ onMounted(async () => {
                 {{ org.name }}
               </span>
             </div>
-            <span v-if="org.selected"
+            <span v-if="org.id === _org?.id"
               class="badge badge-xs bg-success-subtle text-success border border-success-subtle rounded-pill ms-6">Active</span>
           </div>
         </a>
